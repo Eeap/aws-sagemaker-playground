@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+ext {
+    log4jVersion = '2.17.1'
+    awsVersion = '2.25.35'
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // AWS SDK
+    implementation(platform("software.amazon.awssdk:bom:${awsVersion}"))
+    implementation 'software.amazon.awssdk:s3'
+    implementation 'software.amazon.awssdk:sagemaker'
+    implementation 'software.amazon.awssdk:lambda'
+    implementation 'software.amazon.awssdk:iam'
+    implementation 'software.amazon.awssdk:sagemakerruntime'
+    implementation 'software.amazon.awssdk:sagemakergeospatial'
+    implementation 'software.amazon.awssdk:secretsmanager'
+    implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+
+
+    runtimeOnly "org.apache.logging.log4j:log4j-slf4j-impl:${log4jVersion}"
+    runtimeOnly "org.apache.logging.log4j:log4j-api:${log4jVersion}"
+    runtimeOnly "org.apache.logging.log4j:log4j-core:${log4jVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
